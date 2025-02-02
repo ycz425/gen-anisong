@@ -1,5 +1,5 @@
-from ..models.third_party.midi_tokenizer import MIDITokenizerV2
-from ..utils.third_party import MIDI
+from models.third_party.midi_tokenizer import MIDITokenizerV2
+from utils.third_party import MIDI
 from datasets import Dataset
 import random
 import os
