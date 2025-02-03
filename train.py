@@ -26,8 +26,8 @@ if __name__ == '__main__':
 
     args = TrainingArguments(
         output_dir='delete',
-        per_device_train_batch_size=8,
-        per_device_eval_batch_size=8,
+        per_device_train_batch_size=4,
+        per_device_eval_batch_size=4,
         eval_strategy='epoch',
         num_train_epochs=5,
         logging_dir='./logs',
