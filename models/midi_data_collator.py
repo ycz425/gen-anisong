@@ -16,4 +16,4 @@ class MIDIDataCollator(DefaultDataCollator):
             batch = [torch.tensor(example['x']) for example in batch]
         batch = pad_sequence(batch, batch_first=True, padding_value=self.tokenizer.pad_id)
         
-        return {'x': batch[:, :-1].contiguous(), 'y': batch[:, 1:].contiguous()}
+        return {'x': batch[:, :-1].contiguous(), 'labels': batch[:, 1:].contiguous()}

@@ -10,12 +10,10 @@ class CustomTrainer(Trainer):
         self.eval_collator = eval_collator
 
     def get_train_dataloader(self) -> DataLoader:
-        print('train!')
         self.data_collator = self.train_collator
         return super().get_train_dataloader()
 
     def get_eval_dataloader(self, eval_dataset: Optional[Union[str, Dataset]] = None) -> DataLoader:
-        print('eval!')
         self.data_collator = self.eval_collator
         return super().get_eval_dataloader(eval_dataset)
     

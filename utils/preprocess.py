@@ -44,6 +44,6 @@ def create_datasets(dataset_dir: str, tokenizer: MIDITokenizerV2, val_split: flo
         else:
             eval_inputs.append(midi)
     
-    train = Dataset.from_dict({'x': train_inputs})
-    eval = Dataset.from_dict({'x': eval_inputs})
+    train = Dataset.from_dict({'x': train_inputs, 'labels': [0] * len(train_inputs)})  # dummy 'labels' key to ensure Trainer will compute loss
+    eval = Dataset.from_dict({'x': eval_inputs, 'labels': [0] * len(eval_inputs)})
     return train, eval

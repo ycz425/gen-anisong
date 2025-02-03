@@ -28,6 +28,7 @@ if __name__ == '__main__':
         output_dir='delete',
         per_device_train_batch_size=4,
         per_device_eval_batch_size=4,
+        prediction_loss_only=True,
         eval_strategy='epoch',
         num_train_epochs=5,
         logging_dir='./logs',
@@ -38,8 +39,6 @@ if __name__ == '__main__':
         max_grad_norm=1.0
     )
 
-    import evaluate
-    metrics = evaluate.load("perplexity")
     trainer = CustomTrainer(
         model,
         args=args,
@@ -48,7 +47,9 @@ if __name__ == '__main__':
         train_dataset=train_dataset,
         eval_dataset=eval_dataset
     )
-    trainer.train()
+    # trainer.train()
+
+    print(trainer.evaluate())
     
     
 
