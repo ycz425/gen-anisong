@@ -4,7 +4,7 @@ from torch.nn.utils.rnn import pad_sequence
 import torch
 
 class MIDIDataCollator(DefaultDataCollator):
-    def __init__(self, tokenizer: MIDITokenizerV2, train: bool = 'true'):
+    def __init__(self, tokenizer: MIDITokenizerV2, train: bool = True):
         super().__init__(return_tensors='pt')
         self.tokenizer = tokenizer
         self.train = train
