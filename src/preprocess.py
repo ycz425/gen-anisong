@@ -1,5 +1,5 @@
-from src.third_party.midi_tokenizer import MIDITokenizerV2
-from src.third_party import MIDI
+from third_party.midi_tokenizer import MIDITokenizerV2
+from third_party import MIDI
 from datasets import Dataset
 import random
 import os

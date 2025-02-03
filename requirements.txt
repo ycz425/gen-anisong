@@ -1,3 +1,5 @@
 transformers
 datasets
 torch
+pillow
+peft

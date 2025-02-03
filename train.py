@@ -20,19 +20,20 @@ train_collator = MIDIDataCollator(model.midi_model.tokenizer, train=True)
 eval_collator = MIDIDataCollator(model.midi_model.tokenizer, train=False)
 
 args = TrainingArguments(
-    output_dir='delete',
+    output_dir='checkpoints',
     per_device_train_batch_size=4,
     per_device_eval_batch_size=4,
     prediction_loss_only=True,
     eval_strategy='epoch',
     num_train_epochs=5,
-    logging_dir='./logs',
+    logging_dir='logs',
     logging_strategy='epoch',
     learning_rate=0.00005,
     lr_scheduler_type='linear',
     weight_decay=0.0001,
     max_grad_norm=1.0,
-    save_strategy=''
+    save_strategy='epoch',
+
 )
 
 trainer = CustomTrainer(
