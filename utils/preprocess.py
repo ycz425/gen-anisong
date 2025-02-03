@@ -36,18 +36,14 @@ def create_datasets(dataset_dir: str, tokenizer: MIDITokenizerV2, val_split: flo
     random.shuffle(tokenized_midis)
 
     train_inputs = []
-    train_targets = []
     eval_inputs = []
-    eval_targets = []
 
     for i, midi in enumerate(tokenized_midis):
         if i < int(len(tokenized_midis) * val_split):
-            train_inputs.append(midi[1:])
-            train_targets.append(midi[:-1])
+            train_inputs.append(midi)
         else:
-            eval_inputs.append(midi[1:])
-            eval_targets.append(midi[:-1])
+            eval_inputs.append(midi)
     
-    train = Dataset.from_dict({'input_ids': train_inputs, 'labels': train_targets})
-    eval = Dataset.from_dict({'input_ids': eval_inputs, 'labels': eval_targets})
-    return train, eval, tokenized_midis
+    train = Dataset.from_dict({'x': train_inputs})
+    eval = Dataset.from_dict({'x': eval_inputs})
+    return train, eval
