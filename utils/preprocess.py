@@ -39,7 +39,7 @@ def create_datasets(dataset_dir: str, tokenizer: MIDITokenizerV2, val_split: flo
     eval_inputs = []
 
     for i, midi in enumerate(tokenized_midis):
-        if i < int(len(tokenized_midis) * val_split):
+        if i > int(len(tokenized_midis) * val_split):
             train_inputs.append(midi)
         else:
             eval_inputs.append(midi)
