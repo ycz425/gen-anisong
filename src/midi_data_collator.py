@@ -1,5 +1,5 @@
 from transformers import DefaultDataCollator
-from models.third_party.midi_tokenizer import MIDITokenizerV2
+from third_party.midi_tokenizer import MIDITokenizerV2
 from torch.nn.utils.rnn import pad_sequence
 import torch
 

@@ -1,9 +1,9 @@
-from models.third_party.midi_model import MIDIModel
+from third_party.midi_model import MIDIModel
 from transformers import TrainingArguments
-from models.custom_trainer import CustomTrainer
-from models.midi_model_wrapper import MIDIModelWrapper
-from utils.preprocess import create_datasets
-from models.midi_data_collator import MIDIDataCollator
+from src.custom_trainer import CustomTrainer
+from src.midi_model_wrapper import MIDIModelWrapper
+from src.preprocess import create_datasets
+from src.midi_data_collator import MIDIDataCollator
 
 
 model = MIDIModel.from_pretrained("skytnt/midi-model-tv2o-medium")

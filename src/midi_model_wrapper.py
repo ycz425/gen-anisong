@@ -1,4 +1,4 @@
-from models.third_party.midi_model import MIDIModel
+from third_party.midi_model import MIDIModel
 from transformers import PreTrainedModel
 import torch.nn.functional as F
 
