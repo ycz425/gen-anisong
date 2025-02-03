@@ -1,12 +1,11 @@
-from third_party.midi_model import MIDIModel
 from transformers import TrainingArguments
 from src.custom_trainer import CustomTrainer
-from src.midi_model_wrapper import MIDIModelWrapper
+from src.midi_model_wrapper import CustomMIDIModel
 from src.preprocess import create_datasets
 from src.midi_data_collator import MIDIDataCollator
 
 
-model = MIDIModel.from_pretrained("skytnt/midi-model-tv2o-medium")
+model = CustomMIDIModel.from_pretrained("skytnt/midi-model-tv2o-medium")
 
 for param in model.parameters():
     param.requires_grad = False
@@ -14,10 +13,8 @@ for param in model.lm_head.parameters():
     param.requires_grad = True
 train_dataset, eval_dataset = create_datasets('data/fonzi', model.tokenizer, 0.1)
 
-model = MIDIModelWrapper(model)
-
-train_collator = MIDIDataCollator(model.midi_model.tokenizer, train=True)
-eval_collator = MIDIDataCollator(model.midi_model.tokenizer, train=False)
+train_collator = MIDIDataCollator(model.tokenizer, train=True)
+eval_collator = MIDIDataCollator(model.tokenizer, train=False)
 
 args = TrainingArguments(
     output_dir='checkpoints',
