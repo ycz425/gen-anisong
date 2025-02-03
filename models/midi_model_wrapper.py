@@ -21,7 +21,4 @@ class MIDIModelWrapper(PreTrainedModel):
             reduction="mean",
             ignore_index=self.midi_model.tokenizer.pad_id
         )
-        # self.log("train/loss", loss)
-        # self.log("train/lr", self.lr_schedulers().get_last_lr()[0])
-        print(loss)
         return {'loss': loss, 'logits': logits}
