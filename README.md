@@ -1,4 +1,4 @@
-### Transformer Anime Song Generator 🎵✨
+# Transformer Anime Song Generator 🎵✨
 This project adapts a hierarchical event transformer to generate anime-style music using Hugging Face and PyTorch. Trained on a custom dataset, the model captures the emotional depth and unique structures of anime soundtracks.
 
 ## Features
