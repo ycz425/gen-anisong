@@ -31,8 +31,13 @@ def create_datasets(dataset_dir: str, tokenizer: MIDITokenizerV2, val_split: flo
     for dirpath, _, filenames in os.walk(dataset_dir):
         for filename in filenames:
             if filename.endswith('.mid'):
-                tokenized_midis.append(process_midi(f'{dirpath}/{filename}', tokenizer))
+                midi = process_midi(f'{dirpath}/{filename}', tokenizer)
+                if tokenizer.check_quality(midi):
+                    tokenized_midis.append(midi)
+                else:
+                    print(f'{filename} ignored due to bad file quality.')
 
+    print(f'Loaded {len(tokenized_midis)} midi files.')
     random.shuffle(tokenized_midis)
 
     train_inputs = []
