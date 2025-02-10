@@ -1,5 +1,6 @@
 from third_party.midi_model import MIDIModel, MIDIModelConfig
 import torch.nn.functional as F
+import torch
 
 
 class CustomMIDIModel(MIDIModel):
@@ -7,7 +8,9 @@ class CustomMIDIModel(MIDIModel):
         super().__init__(config)
 
     def forward(self, x, labels=None, cache=None):
-        if labels is None:
+        # print(f"Allocated memory: {torch.mps.current_allocated_memory() / 1e9:.2f} GB")
+        # print(x.shape)
+        if labels is None:  # for generation: redirect to superclass forward
             return super().forward(x, cache=cache)
         else:
             hidden = super().forward(x, cache=cache)
