@@ -7,9 +7,6 @@ import os
 def process_midi(midi_file: str, tokenizer: MIDITokenizerV2):
     with open(midi_file, 'rb') as file:
         data = file.read()
-    
-    if len(data) > 384000 or len(data) < 3000:
-        raise Exception()
 
     score = MIDI.midi2score(data)
     score = merge_tracks(score)
@@ -25,17 +22,22 @@ def merge_tracks(score):
     return output
 
 
-def create_datasets(dataset_dir: str, tokenizer: MIDITokenizerV2, val_split: float):
+def create_datasets(dataset_dir: str, tokenizer: MIDITokenizerV2, val_split: float, max_sequence_length: int = 3000):
     tokenized_midis = []
+    length = []
 
     for dirpath, _, filenames in os.walk(dataset_dir):
         for filename in filenames:
             if filename.endswith('.mid'):
                 midi = process_midi(f'{dirpath}/{filename}', tokenizer)
-                if tokenizer.check_quality(midi):
-                    tokenized_midis.append(midi)
-                else:
+                if not tokenizer.check_quality(midi):
                     print(f'{filename} ignored due to bad file quality.')
+                elif len(midi) > max_sequence_length:
+                    print(f'{filename} ignored due to exceeding max sequence length: {len(midi)} > {max_sequence_length}.')
+                else:
+                    tokenized_midis.append(midi)
+                    length.append(len(midi))
+                    
 
     print(f'Loaded {len(tokenized_midis)} midi files.')
     random.shuffle(tokenized_midis)
