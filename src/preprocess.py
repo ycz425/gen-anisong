@@ -22,7 +22,7 @@ def merge_tracks(score):
     return output
 
 
-def create_datasets(dataset_dir: str, tokenizer: MIDITokenizerV2, val_split: float, max_sequence_length: int = 3000):
+def create_datasets(dataset_dir: str, tokenizer: MIDITokenizerV2, val_split: float, max_sequence_length: int = 3000) -> tuple[Dataset, Dataset]:
     tokenized_midis = []
     length = []
 
