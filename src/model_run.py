@@ -1,9 +1,9 @@
 from typing import Any
 from transformers import TrainingArguments
 from datasets import Dataset
+import torch.nn as nn
 from src.custom_trainer import CustomTrainer
 from src.custom_midi_model import CustomMIDIModel
-from src.preprocess import create_datasets
 from src.midi_data_collator import MIDIDataCollator
 
 
@@ -16,6 +16,16 @@ def train_midi_model(model: CustomMIDIModel, train_dataset: Dataset, eval_datase
         param.requires_grad = True
     for param in model.net_token.layers[-net_token_layers:].parameters():
         param.requires_grad = True
+
+    for i in range(0, len(model.net.layers) - net_layers):
+        model.net.layers[i].self_attn.dropout.p = 0
+        model.net.layers[i].mlp.dropout.p = 0
+
+    for i in range(0, len(model.net_token.layers) - net_token_layers):
+        model.net_token.layers[i].self_attn.dropout.p = 0
+        model.net_token.layers[i].mlp.dropout.p = 0
+
+    print(model)
 
     train_collator = MIDIDataCollator(model.tokenizer, train=True)
     eval_collator = MIDIDataCollator(model.tokenizer, train=False)
